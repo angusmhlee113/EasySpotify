@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import PlaylistView from "@/components/PlaylistView";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -14,7 +15,8 @@ export default function Home() {
     if (session && session.accessToken) {
       setSessiontoken(session.accessToken);
     }
-  }, [session]);
+  }, [session, globalPlaylistId]);
+
   return (
     <>
       <main className="h-screen overflow-hidden bg-black">
@@ -22,9 +24,15 @@ export default function Home() {
           <Sidebar
             view={view}
             setView={setView}
-            setGlobalArtistId={setGlobalArtistId}
+            setGlobalPlaylistId={setGlobalPlaylistId}
           />
-          <div className="text-white">Main</div>
+          {view === "playlist" && (
+            <PlaylistView
+              setView={setView}
+              setGlobalArtistId={setGlobalArtistId}
+              globalPlaylistId={globalPlaylistId}
+            />
+          )}
         </div>
       </main>
       <div className="sticky z-20 bottom-0 h-24 w-full bg-red-100"></div>

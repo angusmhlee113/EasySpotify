@@ -21,6 +21,7 @@ const SpotifySVG = () => (
 
 const Sidebar = ({ view, setView, setGlobalPlaylistId }) => {
   const { data: session } = useSession();
+  console.log(session);
   const [playlists, setPlaylists] = useState([]);
   useEffect(() => {
     async function f() {
@@ -67,6 +68,11 @@ const Sidebar = ({ view, setView, setGlobalPlaylistId }) => {
           }`}
         >
           <BuildingLibraryIcon className="h-5 w-5" />
+          <p>Your Library</p>
+        </button>
+        <hr className="border-black" />
+        <button className="flex items-center space-x-2 hover:text-white">
+          <PlusCircleIcon className="h-5 w-5" />
           <p>Create Playlist</p>
         </button>
         <button className="flex items-center space-x-2 hover:text-white">
