@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import PlaylistView from "@/components/PlaylistView";
+import Player from "@/components/Player";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -10,6 +11,8 @@ export default function Home() {
   const [view, setView] = useState("search"); // ["search", "library", "playlist", "artist"]
   const [globalPlaylistId, setGlobalPlaylistId] = useState(null);
   const [globalArtistId, setGlobalArtistId] = useState(null);
+  const [globalCurrentSongId, setGlobalCurrentSongId] = useState(null);
+  const [globalIsTrackPlaying, setGlobalIsTrackPlaying] = useState(false);
 
   useEffect(() => {
     if (session && session.accessToken) {
@@ -31,11 +34,20 @@ export default function Home() {
               setView={setView}
               setGlobalArtistId={setGlobalArtistId}
               globalPlaylistId={globalPlaylistId}
+              setGlobalCurrentSongId={setGlobalCurrentSongId}
+              setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
             />
           )}
         </div>
       </main>
-      <div className="sticky z-20 bottom-0 h-24 w-full bg-red-100"></div>
+      <div className="sticky z-20 bottom-0 h-24 w-full">
+        <Player
+          globalCurrentSongId={globalCurrentSongId}
+          setGlobalCurrentSongId={setGlobalCurrentSongId}
+          setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
+          globalIsTrackPlaying={globalIsTrackPlaying}
+        />
+      </div>
     </>
   );
 }

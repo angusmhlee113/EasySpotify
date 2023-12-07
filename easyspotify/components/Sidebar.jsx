@@ -21,7 +21,6 @@ const SpotifySVG = () => (
 
 const Sidebar = ({ view, setView, setGlobalPlaylistId }) => {
   const { data: session } = useSession();
-  console.log(session);
   const [playlists, setPlaylists] = useState([]);
   useEffect(() => {
     async function f() {
