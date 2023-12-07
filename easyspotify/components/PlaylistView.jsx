@@ -2,7 +2,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import Songs from "./Songs";
+import Song from "./Song";
 
 const colors = [
   "from-indigo-500",
@@ -14,10 +14,12 @@ const colors = [
   "from-purple-500",
 ];
 
-const PlaylistView = ({ globalPlaylistId }) => {
+const PlaylistView = ({ setView, setGlobalArtistId, globalPlaylistId }) => {
   const { data: session } = useSession();
   const [playlistData, setPlaylistData] = useState(null);
   const [color, setColor] = useState(colors[0]);
+  const [globalIsTrackPlaying, setGlobalIsTrackPlaying] = useState(false);
+  const [globalCurrentSongId, setGlobalCurrentSongId] = useState(null);
   const [opacity, setOpacity] = useState(0);
   const [textOpacity, setTextOpacity] = useState(0);
 
@@ -100,6 +102,22 @@ const PlaylistView = ({ globalPlaylistId }) => {
             </h1>
           </div>
         </section>
+        <div className="text-white px-8 flex flex-col space-y-1 pb-28">
+          {playlistData?.tracks.items.map((track, i) => {
+            // song component
+            return (
+              <Song
+                setView={setView}
+                setGlobalArtistId={setGlobalArtistId}
+                setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
+                setGlobalCurrentSongId={setGlobalCurrentSongId}
+                key={track.track.id}
+                sno={i}
+                track={track.track}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
