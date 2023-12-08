@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import PlaylistView from "@/components/PlaylistView";
 import Player from "@/components/Player";
+import Search from "@/components/Search";
+import Library from "@/components/Library";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -38,6 +40,8 @@ export default function Home() {
               setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
             />
           )}
+          {view === "search" && <Search />}
+          {view === "library" && <Library />}
         </div>
       </main>
       <div className="sticky z-20 bottom-0 h-24 w-full">
