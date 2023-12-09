@@ -4,6 +4,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
+import FeaturedPlaylists from "./FeaturedPlaylists";
 
 const Search = ({
   setView,
@@ -63,6 +64,16 @@ const Search = ({
         />
         <p className="text-sm">Logout</p>
         <ChevronDownIcon className="h-5 w-5" />
+      </div>
+      <div>
+        {searchData === null ? (
+          <FeaturedPlaylists
+            setView={setView}
+            setGlobalPlaylistId={setGlobalPlaylistId}
+          />
+        ) : (
+          <div>hi</div>
+        )}
       </div>
     </div>
   );
