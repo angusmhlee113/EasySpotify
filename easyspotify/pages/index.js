@@ -6,6 +6,7 @@ import PlaylistView from "@/components/PlaylistView";
 import Player from "@/components/Player";
 import Search from "@/components/Search";
 import Library from "@/components/Library";
+import Artist from "@/components/Artist";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -42,6 +43,15 @@ export default function Home() {
           )}
           {view === "search" && <Search />}
           {view === "library" && <Library />}
+          {view === "artist" && (
+            <Artist
+              setView={setView}
+              globalArtistId={globalArtistId}
+              setGlobalArtistId={setGlobalArtistId}
+              setGlobalCurrentSongId={setGlobalCurrentSongId}
+              setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
+            />
+          )}
         </div>
       </main>
       <div className="sticky z-20 bottom-0 h-24 w-full">

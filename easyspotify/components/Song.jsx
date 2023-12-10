@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
+import React, { useState } from "react";
 
 const Song = ({
   sno,
@@ -10,13 +10,8 @@ const Song = ({
   setView,
   setGlobalArtistId,
 }) => {
-  const [hover, setHover] = useState(false);
   const { data: session } = useSession();
-
-  function selectArtist(artist) {
-    setView("artist");
-    setGlobalArtistId(artist.id);
-  }
+  const [hover, setHover] = useState(false);
 
   async function playSong(track) {
     setGlobalCurrentSongId(track.id);
@@ -44,6 +39,11 @@ const Song = ({
     return seconds == 60
       ? minutes + 1 + ":00"
       : minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  }
+
+  function selectArtist(artist) {
+    setView("artist");
+    setGlobalArtistId(artist.id);
   }
 
   return (
